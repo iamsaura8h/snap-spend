@@ -15,6 +15,7 @@ import Results from "./pages/Results";
 import Insights from "./pages/Insights";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import Test from "./components/Test";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* Public routes */}
+      <Route path="/test" element={<Test />} />
       <Route path="/landing" element={<Landing />} />
       <Route path="/auth" element={
         <PublicOnlyRoute>

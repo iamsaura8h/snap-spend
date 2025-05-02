@@ -5,6 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useEffect, useRef } from "react";
 import FloatingIllustration from "@/components/FloatingIllustration";
 import { ArrowRight, BarChart3, Upload, FileText } from "lucide-react";
+import Navbar from "@/components/Navbar";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Navbar />
       {/* Hero Section */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
