@@ -30,7 +30,7 @@ export default function Navbar() {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate('/');
+    navigate('/landing');
   };
 
   const getInitials = () => {
@@ -43,22 +43,27 @@ export default function Navbar() {
     return names[0][0].toUpperCase();
   };
 
+  const isLandingPage = location.pathname === '/landing';
+
   const authNavigation = user 
     ? [
         { name: 'Dashboard', href: '/', icon: <Home className="h-5 w-5" /> },
-        { name: 'Upload CSV', href: '/upload', icon: <Upload className="h-5 w-5" /> },
-        { name: 'Insights', href: '/insights', icon: <BarChart3 className="h-5 w-5" /> },
+        { name: 'Upload', href: '/upload', icon: <Upload className="h-5 w-5" /> },
+        { name: 'Results', href: '/results', icon: <BarChart3 className="h-5 w-5" /> },
         { name: 'Settings', href: '/settings', icon: <SettingsIcon className="h-5 w-5" /> },
       ]
     : [];
 
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className={cn(
+      "sticky top-0 z-40 w-full border-b border-gray-100",
+      isLandingPage ? "bg-white/80 backdrop-blur-md" : "bg-white"
+    )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0 flex items-center">
-              <span className="text-expense-blue font-bold text-xl">ExpenseSnap</span>
+            <Link to="/landing" className="flex-shrink-0 flex items-center">
+              <span className="font-display text-black font-bold text-xl">Expense<span className="text-gray-400">Snap</span></span>
             </Link>
           </div>
           
@@ -67,27 +72,25 @@ export default function Navbar() {
             {!user ? (
               // Guest navigation
               <div className="flex items-center space-x-4">
+                {!isLandingPage && (
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate('/landing')}
+                    className="text-gray-700 hover:text-black"
+                  >
+                    Home
+                  </Button>
+                )}
                 <Button
                   variant="ghost"
-                  onClick={() => navigate('/')}
-                  className={cn(
-                    "px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                    location.pathname === '/' ? "text-expense-blue" : "text-gray-600 hover:text-expense-blue"
-                  )}
-                >
-                  Home
-                </Button>
-                <Button
-                  variant="outline"
                   onClick={() => navigate('/auth?mode=login')}
-                  className="text-expense-blue border-expense-blue"
+                  className="text-gray-700 hover:text-black"
                 >
-                  <LogIn className="mr-2 h-4 w-4" />
                   Sign In
                 </Button>
                 <Button
                   onClick={() => navigate('/auth?mode=signup')}
-                  className="bg-expense-blue hover:bg-blue-700"
+                  className="bg-black hover:bg-gray-800 text-white rounded-md"
                 >
                   Sign Up
                 </Button>
@@ -102,8 +105,8 @@ export default function Navbar() {
                     className={cn(
                       "px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors",
                       location.pathname === item.href
-                        ? "text-white bg-expense-blue"
-                        : "text-gray-600 hover:bg-expense-gray hover:text-expense-blue"
+                        ? "text-white bg-black"
+                        : "text-gray-700 hover:bg-gray-50 hover:text-black"
                     )}
                   >
                     <span className="mr-2">{item.icon}</span>
@@ -187,12 +190,12 @@ export default function Navbar() {
             // Guest navigation (mobile)
             <>
               <Link
-                to="/"
+                to="/landing"
                 className={cn(
                   "block px-3 py-2 rounded-md text-base font-medium mx-4",
-                  location.pathname === '/'
-                    ? "text-expense-blue"
-                    : "text-gray-600 hover:text-expense-blue"
+                  location.pathname === '/landing'
+                    ? "text-black"
+                    : "text-gray-700 hover:text-black"
                 )}
                 onClick={() => setIsOpen(false)}
               >
@@ -200,14 +203,14 @@ export default function Navbar() {
               </Link>
               <Link
                 to="/auth?mode=login"
-                className="block px-3 py-2 rounded-md text-base font-medium mx-4 text-expense-blue"
+                className="block px-3 py-2 rounded-md text-base font-medium mx-4 text-gray-700"
                 onClick={() => setIsOpen(false)}
               >
                 Sign In
               </Link>
               <Link
                 to="/auth?mode=signup"
-                className="block px-3 py-2 rounded-md text-base font-medium mx-4 bg-expense-blue text-white my-2"
+                className="block px-3 py-2 rounded-md text-base font-medium mx-4 bg-black text-white my-2"
                 onClick={() => setIsOpen(false)}
               >
                 Sign Up
@@ -223,8 +226,8 @@ export default function Navbar() {
                   className={cn(
                     "block px-3 py-2 rounded-md text-base font-medium mx-4 flex items-center",
                     location.pathname === item.href
-                      ? "text-white bg-expense-blue"
-                      : "text-gray-600 hover:bg-expense-gray hover:text-expense-blue"
+                      ? "text-white bg-black"
+                      : "text-gray-700 hover:bg-gray-50 hover:text-black"
                   )}
                   onClick={() => setIsOpen(false)}
                 >

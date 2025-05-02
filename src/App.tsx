@@ -49,6 +49,8 @@ const PublicOnlyRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 const AppRoutes = () => {
+  const { user } = useAuth();
+  
   return (
     <Routes>
       {/* Public routes */}
@@ -91,8 +93,8 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
-      {/* Redirect root to landing for non-authenticated users */}
-      <Route path="/" element={<Navigate to="/landing" replace />} />
+      {/* Redirect root to landing for everyone */}
+      <Route path="/" element={<Navigate to={user ? "/" : "/landing"} replace />} />
       
       {/* Not found */}
       <Route path="*" element={<Layout><NotFound /></Layout>} />
