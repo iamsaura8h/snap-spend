@@ -17,6 +17,7 @@ import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Test from "./components/Test";
 import Saurabh from "./pages/Saurabh";
+import Sau2 from "./pages/Sau2";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const AppRoutes = () => {
       {/* Public routes */}
       <Route path="/test" element={<Test />} />
       <Route path="/saurabh" element={<Saurabh />} />
+      <Route path="/sau2" element={<Sau2 />} />
       <Route path="/landing" element={<Landing />} />
       <Route path="/auth" element={
         <PublicOnlyRoute>
