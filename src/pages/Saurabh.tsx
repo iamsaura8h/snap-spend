@@ -1,8 +1,11 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, LineChart, Line } from "recharts";
-import { Button, Input, Card, Spinner } from "@components/ui"; 
-
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Transaction {
   description: string;
@@ -69,7 +72,7 @@ export default function Saurabh() {
         />
         <Button
           onClick={handleUpload}
-          isLoading={loading}
+          disabled={loading}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
           {loading ? "Analyzing..." : "Upload & Analyze"}
@@ -172,7 +175,7 @@ export default function Saurabh() {
       {/* Loading Spinner */}
       {loading && (
         <div className="flex justify-center mt-6">
-          <Spinner />
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
         </div>
       )}
     </div>

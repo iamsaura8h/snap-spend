@@ -1,7 +1,7 @@
 
 import FileUpload from "@/components/Analyse";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Upload, ClipboardList, BarChart } from "lucide-react";
+import { Upload as UploadIcon, ClipboardList, BarChart } from "lucide-react";
 
 const Upload = () => {
   return (
@@ -33,7 +33,7 @@ const Upload = () => {
         
         <div className="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
           <div className="text-gray-700 mb-3">
-            <Upload className="h-8 w-8 mx-auto" />
+            <UploadIcon className="h-8 w-8 mx-auto" />
           </div>
           <h3 className="font-medium text-lg text-center">Upload File</h3>
           <p className="text-gray-600 text-sm mt-2 text-center">
