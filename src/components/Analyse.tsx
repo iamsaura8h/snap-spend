@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { FileUp } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowDown, ArrowUp } from "lucide-react";
+import PieChart from "@/components/charts/PieChart"; // Assuming you have a PieChart component
+import { categoryTotals, formatCurrency } from "@/lib/demo-data";
 
-function FileUpload() {
+const Analyse = () => {
   const [file, setFile] = useState(null);
   const [categorizedData, setCategorizedData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,15 +36,14 @@ function FileUpload() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-8">
+        {/* File Upload Section */}
         <h1 className="text-2xl font-bold mb-4">🧾 Transaction Categorizer</h1>
-
         <input
           type="file"
           accept=".csv"
           onChange={handleFileChange}
           className="mb-4"
         />
-
         <button
           onClick={handleUpload}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
@@ -71,9 +74,55 @@ function FileUpload() {
             </div>
           </div>
         )}
+
+        {/* Category Breakdown Analysis */}
+        <div className="space-y-8 mt-6">
+          <h1 className="text-3xl font-bold">Spending Breakdown</h1>
+          
+          {/* Category Breakdown Pie Chart */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Category-wise Spending</CardTitle>
+              <CardDescription>Visual representation of your spending across categories</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-80">
+                <PieChart data={categorizedData} /> {/* Assuming PieChart component receives categorizedData */}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Category Breakdown Details */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Category Breakdown Analysis</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {categoryTotals.map((category) => (
+                  <div key={category.category} className="space-y-2">
+                    <div className="flex justify-between">
+                      <h4 className="font-medium">{category.category}</h4>
+                      <span>{formatCurrency(category.total)}</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                      <div
+                        className="h-2.5 rounded-full"
+                        style={{ width: `${category.percentage}%`, backgroundColor: category.color }}
+                      />
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      {category.percentage}% of your total expenses
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default FileUpload;
+export default Analyse;

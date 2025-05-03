@@ -13,3 +13,11 @@ Date,Description,Amount,Type,Balance,Transaction ID,Merchant Name,Location,DR/CR
 2025-05-08,Netflix monthly subscription,-199.00,Debit,2880.50,TXN012,Netflix,Online,DR
 2025-05-09,Train ticket IRCTC,-600.00,Debit,2280.50,TXN013,IRCTC,Hyderabad,DR
 2025-05-09,Freelance payment from ClientX,1500.00,Credit,3780.50,TXN014,ClientX,Bangalore,CR
+2025-05-10,Myntra clothing haul,-1800.00,Debit,1980.50,TXN015,Myntra,Online,DR
+2025-05-10,Flight booking on Indigo,-3000.00,Debit,-1019.50,TXN016,Indigo,Online,DR
+2025-05-11,DMart grocery shopping,-600.00,Debit,-1619.50,TXN017,DMart,Mumbai,DR
+2025-05-11,Groww investment SIP,-1000.00,Debit,-2619.50,TXN018,Groww,Online,DR
+2025-05-12,Hotstar annual subscription,-899.00,Debit,-3518.50,TXN019,Hotstar,Online,DR
+2025-05-12,BigBasket essentials,-550.00,Debit,-4068.50,TXN020,BigBasket,Bangalore,DR
+2025-05-13,PharmEasy medicine order,-300.00,Debit,-4368.50,TXN021,PharmEasy,Online,DR
+2025-05-13,Udemy course purchase,-449.00,Debit,-4817.50,TXN022,Udemy,Online,DR

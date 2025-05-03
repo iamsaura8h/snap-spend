@@ -1,0 +1,15 @@
+Date,Description,Amount,Type,Balance,Transaction ID,Merchant Name,Location,DR/CR
+2025-05-01,Movie tickets for Avengers,-150.00,Debit,1050.00,TXN101,PVR Cinemas,Mumbai,DR
+2025-05-02,Grocery shopping at Big Bazaar,-800.00,Debit,250.00,TXN102,Big Bazaar,Bangalore,DR
+2025-05-02,Book purchase from Flipkart,-1200.00,Debit,-950.00,TXN103,Flipkart,Online,DR
+2025-05-03,Freelance work payment,3000.00,Credit,2050.00,TXN104,Freelancer,Delhi,CR
+2025-05-04,Gas station refuel,-500.00,Debit,1550.00,TXN105,Indian Oil,Mumbai,DR
+2025-05-04,Coffee at Café Coffee Day,-150.00,Debit,1400.00,TXN106,Café Coffee Day,Delhi,DR
+2025-05-05,Movie tickets for Batman,-200.00,Debit,1200.00,TXN107,INOX,Delhi,DR
+2025-05-06,ATM withdrawal from HDFC,-1500.00,Debit,-300.00,TXN108,HDFC Bank,Delhi,DR
+2025-05-07,Monthly rent payment,-5000.00,Debit,-5300.00,TXN109,Landlord,Delhi,DR
+2025-05-07,Quick Bites from Swiggy,-350.00,Debit,-5650.00,TXN110,Swiggy,Hyderabad,DR
+2025-05-08,Tax refund from Government,1200.00,Credit,-4450.00,TXN111,Government,Chennai,CR
+2025-05-08,Spotify Premium,-120.00,Debit,-4570.00,TXN112,Spotify,Online,DR
+2025-05-09,Bus pass recharge,-250.00,Debit,-4820.00,TXN113,KSRTC,Hyderabad,DR
+2025-05-09,Payment from ClientY,2000.00,Credit,-2820.00,TXN114,ClientY,Bangalore,CR

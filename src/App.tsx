@@ -16,6 +16,7 @@ import Insights from "./pages/Insights";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Test from "./components/Test";
+import Saurabh from "./pages/Saurabh";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ const AppRoutes = () => {
     <Routes>
       {/* Public routes */}
       <Route path="/test" element={<Test />} />
+      <Route path="/saurabh" element={<Saurabh />} />
       <Route path="/landing" element={<Landing />} />
       <Route path="/auth" element={
         <PublicOnlyRoute>

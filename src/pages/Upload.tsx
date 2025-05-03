@@ -1,5 +1,5 @@
 
-import FileUpload from "@/components/FileUpload";
+import FileUpload from "@/components/Analyse";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Upload = () => {
