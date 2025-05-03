@@ -82,32 +82,29 @@
 }
 
 @layer components {
-  .expense-card {
-    @apply bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg;
-  }
-  
+  /* Update with the monochromatic color scheme */
   .category-food {
-    @apply bg-red-500 text-white;
+    @apply bg-slate-500 text-white;
   }
   
   .category-travel {
-    @apply bg-blue-500 text-white;
+    @apply bg-slate-600 text-white;
   }
   
   .category-bills {
-    @apply bg-amber-500 text-white;
+    @apply bg-slate-700 text-white;
   }
   
   .category-shopping {
-    @apply bg-purple-500 text-white;
+    @apply bg-slate-800 text-white;
   }
   
   .category-entertainment {
-    @apply bg-green-500 text-white;
+    @apply bg-slate-900 text-white;
   }
   
   .category-other {
-    @apply bg-gray-500 text-white;
+    @apply bg-slate-400 text-white;
   }
 }
 
@@ -133,4 +130,3 @@
 .reveal-delay-3 {
   transition-delay: 0.6s;
 }
-

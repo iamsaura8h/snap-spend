@@ -1,7 +1,7 @@
 
 import { BarChart as ReChartsBar, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { MonthlySpending } from '@/lib/types';
-import { categoryTotals } from '@/lib/demo-data';
+import { categoryTotals, formatCurrency } from '@/lib/demo-data';
 
 interface BarChartProps {
   data: MonthlySpending[];
@@ -20,11 +20,11 @@ export default function BarChart({ data }: BarChartProps) {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
           <XAxis dataKey="month" />
           <YAxis />
-          <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} />
-          <Legend />
+          <Tooltip formatter={(value: number) => formatCurrency(value)} />
+          <Legend formatter={(value) => <span className="text-black">{value}</span>} />
           {categoryTotals.map((category) => (
             <Bar 
               key={category.category}

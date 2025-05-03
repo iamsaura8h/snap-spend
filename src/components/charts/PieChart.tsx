@@ -1,6 +1,7 @@
 
 import { PieChart as ReChartsPie, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { CategoryTotal } from '@/lib/types';
+import { formatCurrency } from '@/lib/demo-data';
 
 interface PieChartProps {
   data: CategoryTotal[];
@@ -27,10 +28,10 @@ export default function PieChart({ data }: PieChartProps) {
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value: number) => [`$${value.toFixed(2)}`, 'Amount']} 
+            formatter={(value: number) => [formatCurrency(value), 'Amount']} 
             labelFormatter={(name) => `Category: ${name}`}
           />
-          <Legend />
+          <Legend formatter={(value) => <span className="text-black">{value}</span>} />
         </ReChartsPie>
       </ResponsiveContainer>
     </div>

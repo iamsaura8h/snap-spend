@@ -6,15 +6,19 @@ import PieChart from "@/components/charts/PieChart";
 import BarChart from "@/components/charts/BarChart";
 import TransactionList from "@/components/TransactionList";
 import { categoryTotals, recentTransactions, monthlySpending, formatCurrency } from "@/lib/demo-data";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Results = () => {
   const [view, setView] = useState("transactions");
+  const { profile } = useAuth();
   
   const totalSpent = categoryTotals.reduce((sum, cat) => sum + cat.total, 0);
   
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold">Your Expense Analysis</h1>
+      <h1 className="text-3xl font-bold">
+        {profile ? `Welcome back, ${profile.username}` : 'Your Expense Analysis'}
+      </h1>
       
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -108,8 +112,8 @@ const Results = () => {
                   />
                   <div className="flex-grow">
                     <div className="flex justify-between items-center mb-1">
-                      <span className="font-medium">{category.category}</span>
-                      <span>{formatCurrency(category.total)}</span>
+                      <span className="font-medium text-black">{category.category}</span>
+                      <span className="text-black">{formatCurrency(category.total)}</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                       <div 

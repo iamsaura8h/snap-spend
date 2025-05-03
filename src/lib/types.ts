@@ -9,7 +9,7 @@ export type Category =
 
 export interface Transaction {
   id: string;
-  date: string;
+  date: Date; // Changed from string to Date
   description: string;
   amount: number;
   category: Category;

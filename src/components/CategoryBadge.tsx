@@ -9,18 +9,18 @@ interface CategoryBadgeProps {
 
 export default function CategoryBadge({ category, className }: CategoryBadgeProps) {
   const badgeClasses = {
-    'Food': 'bg-red-500',
-    'Travel': 'bg-blue-500',
-    'Bills': 'bg-amber-500',
-    'Shopping': 'bg-purple-500',
-    'Entertainment': 'bg-green-500',
-    'Other': 'bg-gray-500',
+    'Food': 'bg-slate-500 text-white',
+    'Travel': 'bg-slate-600 text-white',
+    'Bills': 'bg-slate-700 text-white',
+    'Shopping': 'bg-slate-800 text-white',
+    'Entertainment': 'bg-slate-900 text-white',
+    'Other': 'bg-slate-400 text-white',
   };
 
   return (
     <span 
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium text-white",
+        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
         badgeClasses[category],
         className
       )}

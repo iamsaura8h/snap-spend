@@ -1,45 +1,45 @@
 
-import { CategoryTotal, MonthlySpending, Transaction } from "./types";
+import { CategoryTotal, MonthlySpending, Transaction, Category } from "./types";
 
 export const recentTransactions: Transaction[] = [
   {
     id: "tx1",
-    date: "2023-05-01",
+    date: new Date("2023-05-01"),
     description: "Grocery Shopping",
     amount: 85.42,
     category: "Food",
   },
   {
     id: "tx2",
-    date: "2023-05-03",
+    date: new Date("2023-05-03"),
     description: "Uber Ride",
     amount: 24.99,
     category: "Travel",
   },
   {
     id: "tx3",
-    date: "2023-05-05",
+    date: new Date("2023-05-05"),
     description: "Netflix Subscription",
     amount: 15.99,
     category: "Entertainment",
   },
   {
     id: "tx4",
-    date: "2023-05-07",
+    date: new Date("2023-05-07"),
     description: "Electricity Bill",
     amount: 112.45,
     category: "Bills",
   },
   {
     id: "tx5",
-    date: "2023-05-10",
+    date: new Date("2023-05-10"),
     description: "Amazon Purchase",
     amount: 49.99,
     category: "Shopping",
   },
   {
     id: "tx6",
-    date: "2023-05-12",
+    date: new Date("2023-05-12"),
     description: "Restaurant Dinner",
     amount: 78.35,
     category: "Food",
@@ -51,37 +51,37 @@ export const categoryTotals: CategoryTotal[] = [
     category: "Food",
     total: 458.77,
     percentage: 30,
-    color: "#ef4444", // red-500
+    color: "#64748b", // Slate-500 - using more subdued colors
   },
   {
     category: "Travel",
     total: 245.30,
     percentage: 16,
-    color: "#3b82f6", // blue-500
+    color: "#475569", // Slate-600
   },
   {
     category: "Bills",
     total: 325.45,
     percentage: 21,
-    color: "#f59e0b", // amber-500
+    color: "#334155", // Slate-700
   },
   {
     category: "Shopping",
     total: 189.99,
     percentage: 12,
-    color: "#a855f7", // purple-500
+    color: "#1e293b", // Slate-800
   },
   {
     category: "Entertainment",
     total: 156.49,
     percentage: 10,
-    color: "#22c55e", // green-500
+    color: "#0f172a", // Slate-900
   },
   {
     category: "Other",
     total: 175.25,
     percentage: 11,
-    color: "#6b7280", // gray-500
+    color: "#94a3b8", // Slate-400
   },
 ];
 
@@ -135,21 +135,20 @@ export const monthlySpending: MonthlySpending[] = [
 
 export const getCategoryColor = (category: string): string => {
   const matchedCategory = categoryTotals.find((c) => c.category === category);
-  return matchedCategory ? matchedCategory.color : "#6b7280"; // Default to gray
+  return matchedCategory ? matchedCategory.color : "#94a3b8"; // Default to slate-400
 };
 
 export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-US', { 
+  return new Intl.NumberFormat('en-IN', { 
     style: 'currency', 
-    currency: 'USD',
+    currency: 'INR',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount);
 };
 
-export const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-US', { 
+export const formatDate = (date: Date): string => {
+  return new Intl.DateTimeFormat('en-IN', { 
     month: 'short', 
     day: 'numeric', 
     year: 'numeric' 

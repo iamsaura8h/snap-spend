@@ -33,7 +33,7 @@ export default function TransactionList({ transactions }: TransactionListProps) 
           <Button
             key={category}
             variant={selectedCategory === category ? "default" : "outline"}
-            className={selectedCategory === category ? "bg-expense-blue" : ""}
+            className={selectedCategory === category ? "bg-black text-white" : ""}
             onClick={() => setSelectedCategory(category)}
           >
             {category}
