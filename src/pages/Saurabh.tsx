@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from "react";
 import { Line, Bar, Pie } from "react-chartjs-2";
 import {
@@ -26,7 +27,7 @@ ChartJS.register(
   Title
 );
 
-export default function App() {
+export default function Saurabh() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const fileInput = useRef();
@@ -39,7 +40,7 @@ export default function App() {
     const formData = new FormData();
     formData.append("csvFile", file);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL;
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
       const res = await fetch(`${apiUrl}/analyze-transactions`, {
         method: "POST",
         body: formData,
@@ -55,7 +56,6 @@ export default function App() {
   // Day-wise expenditure (Line chart)
   const getDayWiseData = () => {
     if (!data) return { labels: [], datasets: [] };
-    // Aggregate debit transactions by day (assuming date is YYYY-MM-DD)
     const dayMap = {};
     data.categorized.forEach((t) => {
       if (t.category !== "Income") {
@@ -108,193 +108,153 @@ export default function App() {
   };
 
   return (
-    <div style={{ maxWidth: 900, margin: "40px auto", fontFamily: "sans-serif", padding: 20 }}>
-      <h2 style={{ textAlign: "center" }}>Transaction Analyzer</h2>
-      <div style={{ textAlign: "center", margin: 20 }}>
-        <input
-          type="file"
-          accept=".csv"
-          ref={fileInput}
-          style={{ display: "none" }}
-          onChange={handleFileChange}
-        />
-        <button
-          onClick={() => fileInput.current.click()}
-          disabled={loading}
-          style={{
-            padding: "10px 24px",
-            fontSize: "16px",
-            background: "#1976d2",
-            color: "#fff",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer"
-          }}
-        >
-          {loading ? "Uploading..." : "Upload CSV"}
-        </button>
-        <div><a href="/sau2"><button className="bg-purple-400 h-10 w-16 mr-6">Chatbot</button></a></div>
-      </div>
-      {data && (
-        <div>
-          {/* Key Insights */}
-          <div style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 24,
-            justifyContent: "space-between",
-            marginBottom: 24
-          }}>
-            <div style={{
-              flex: 1,
-              minWidth: 200,
-              background: "#f5f5f5",
-              borderRadius: 8,
-              padding: 16
-            }}>
-              <h4>Total Inflow</h4>
-              <div style={{ fontSize: 22, color: "#388e3c" }}>₹{data.analytics.totalInflow}</div>
-            </div>
-            <div style={{
-              flex: 1,
-              minWidth: 200,
-              background: "#f5f5f5",
-              borderRadius: 8,
-              padding: 16
-            }}>
-              <h4>Total Outflow</h4>
-              <div style={{ fontSize: 22, color: "#d32f2f" }}>₹{data.analytics.totalOutflow}</div>
-            </div>
-            <div style={{
-              flex: 2,
-              minWidth: 250,
-              background: "#f5f5f5",
-              borderRadius: 8,
-              padding: 16
-            }}>
-              <h4>Reduce Advice</h4>
-              <ul style={{ margin: 0, paddingLeft: 20 }}>
-                {data.analytics.reduceAdvice.length
-                  ? data.analytics.reduceAdvice.map((advice, i) => <li key={i}>{advice}</li>)
-                  : <li>No advice</li>}
-              </ul>
-            </div>
-            <div style={{
-              flex: 1,
-              minWidth: 200,
-              background: "#f5f5f5",
-              borderRadius: 8,
-              padding: 16
-            }}>
-              <h4>Smart AI Tip</h4>
-              <div style={{ fontStyle: "italic" }}>{data.analytics.aiTip}</div>
-            </div>
-          </div>
-
-          {/* Day-wise Expenditure (Line Chart) */}
-          <div style={{ marginBottom: 36 }}>
-            <h3 style={{ textAlign: "center" }}>Day-wise Expenditure</h3>
-            <Line
-              data={getDayWiseData()}
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: { display: false },
-                  title: { display: false },
-                },
-                scales: {
-                  x: { title: { display: true, text: "Day of Month" } },
-                  y: { title: { display: true, text: "Expenditure (₹)" } },
-                },
-              }}
-              height={80}
+    <div className="min-h-screen bg-gray-50 p-4">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold text-center mb-8">ExpenseSnap - Transaction Analyzer</h1>
+        
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div className="text-center">
+            <input
+              type="file"
+              accept=".csv"
+              ref={fileInput}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
             />
-          </div>
-
-          {/* Category-wise Spending (Bar Chart) */}
-          <div style={{ marginBottom: 36 }}>
-            <h3 style={{ textAlign: "center" }}>Amount Spent in Each Category</h3>
-            <Bar
-              data={getCategoryData()}
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: { display: false },
-                  title: { display: false },
-                },
-                scales: {
-                  x: { title: { display: true, text: "Category" } },
-                  y: { title: { display: true, text: "Amount (₹)" } },
-                },
-              }}
-              height={80}
-            />
-          </div>
-
-          {/* Category-wise Spending (Pie Chart) */}
-          <div style={{ marginBottom: 36, maxWidth: 500, marginLeft: "auto", marginRight: "auto" }}>
-            <h3 style={{ textAlign: "center" }}>Category-wise Spending (Pie Chart)</h3>
-            <Pie
-              data={getCategoryData()}
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: { display: true, position: "bottom" },
-                  title: { display: false },
-                },
-              }}
-              height={80}
-            />
-          </div>
-
-          {/* First vs Second Half Textual */}
-          <div style={{
-            background: "#f0f0f0",
-            borderRadius: 8,
-            padding: 16,
-            marginBottom: 36,
-            textAlign: "center"
-          }}>
-            <h4>First vs Second Half of Month</h4>
-            <div style={{ fontSize: 18 }}>
-              <b>First Half (Days 1–15):</b> ₹{data.analytics.halfMonthComparison.firstHalf}
-              <br />
-              <b>Second Half (Days 16–31):</b> ₹{data.analytics.halfMonthComparison.secondHalf}
-            </div>
-          </div>
-
-          {/* Categorized Transactions Table */}
-          <div style={{ marginTop: 40 }}>
-            <h3>Categorized Transactions</h3>
-            <div style={{ overflowX: "auto" }}>
-              <table style={{
-                borderCollapse: "collapse",
-                width: "100%",
-                background: "#fff"
-              }}>
-                <thead>
-                  <tr style={{ background: "#e3e3e3" }}>
-                    <th style={{ padding: 8, border: "1px solid #ccc" }}>Description</th>
-                    <th style={{ padding: 8, border: "1px solid #ccc" }}>Category</th>
-                    <th style={{ padding: 8, border: "1px solid #ccc" }}>Amount</th>
-                    <th style={{ padding: 8, border: "1px solid #ccc" }}>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.categorized.map((t, i) => (
-                    <tr key={i}>
-                      <td style={{ padding: 8, border: "1px solid #eee" }}>{t.description}</td>
-                      <td style={{ padding: 8, border: "1px solid #eee" }}>{t.category}</td>
-                      <td style={{ padding: 8, border: "1px solid #eee" }}>₹{t.amount}</td>
-                      <td style={{ padding: 8, border: "1px solid #eee" }}>{t.date}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <button
+              onClick={() => fileInput.current.click()}
+              disabled={loading}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors mr-4"
+            >
+              {loading ? "Uploading..." : "Upload CSV"}
+            </button>
+            <a href="/chatbot">
+              <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                Financial Chatbot
+              </button>
+            </a>
           </div>
         </div>
-      )}
+
+        {data && (
+          <div className="space-y-6">
+            {/* Key Insights */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-white rounded-lg shadow-md p-4">
+                <h4 className="text-sm font-medium text-gray-600">Total Inflow</h4>
+                <div className="text-2xl font-bold text-green-600">₹{data.analytics.totalInflow}</div>
+              </div>
+              <div className="bg-white rounded-lg shadow-md p-4">
+                <h4 className="text-sm font-medium text-gray-600">Total Outflow</h4>
+                <div className="text-2xl font-bold text-red-600">₹{data.analytics.totalOutflow}</div>
+              </div>
+              <div className="bg-white rounded-lg shadow-md p-4">
+                <h4 className="text-sm font-medium text-gray-600">First Half</h4>
+                <div className="text-lg font-semibold">₹{data.analytics.halfMonthComparison.firstHalf}</div>
+              </div>
+              <div className="bg-white rounded-lg shadow-md p-4">
+                <h4 className="text-sm font-medium text-gray-600">Second Half</h4>
+                <div className="text-lg font-semibold">₹{data.analytics.halfMonthComparison.secondHalf}</div>
+              </div>
+            </div>
+
+            {/* AI Advice */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h4 className="text-lg font-semibold mb-3">Smart AI Tip</h4>
+              <p className="text-gray-700 italic">{data.analytics.aiTip}</p>
+              {data.analytics.reduceAdvice.length > 0 && (
+                <div className="mt-4">
+                  <h5 className="font-medium mb-2">Money Saving Tips:</h5>
+                  <ul className="list-disc list-inside space-y-1">
+                    {data.analytics.reduceAdvice.map((advice, i) => (
+                      <li key={i} className="text-sm text-gray-600">{advice}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Day-wise Expenditure */}
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h3 className="text-lg font-semibold mb-4">Day-wise Expenditure</h3>
+                <Line
+                  data={getDayWiseData()}
+                  options={{
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                      x: { title: { display: true, text: "Day of Month" } },
+                      y: { title: { display: true, text: "Expenditure (₹)" } },
+                    },
+                  }}
+                  height={80}
+                />
+              </div>
+
+              {/* Category Bar Chart */}
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h3 className="text-lg font-semibold mb-4">Category-wise Spending</h3>
+                <Bar
+                  data={getCategoryData()}
+                  options={{
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                      x: { title: { display: true, text: "Category" } },
+                      y: { title: { display: true, text: "Amount (₹)" } },
+                    },
+                  }}
+                  height={80}
+                />
+              </div>
+            </div>
+
+            {/* Pie Chart */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h3 className="text-lg font-semibold mb-4 text-center">Category Distribution</h3>
+              <div className="max-w-md mx-auto">
+                <Pie
+                  data={getCategoryData()}
+                  options={{
+                    responsive: true,
+                    plugins: { legend: { position: "bottom" } },
+                  }}
+                  height={80}
+                />
+              </div>
+            </div>
+
+            {/* Transactions Table */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h3 className="text-lg font-semibold mb-4">Categorized Transactions</h3>
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Description</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {data.categorized.map((t, i) => (
+                      <tr key={i} className="hover:bg-gray-50">
+                        <td className="px-4 py-2 text-sm text-gray-900">{t.description}</td>
+                        <td className="px-4 py-2 text-sm text-gray-900">{t.category}</td>
+                        <td className="px-4 py-2 text-sm text-gray-900">₹{t.amount}</td>
+                        <td className="px-4 py-2 text-sm text-gray-900">{t.date}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
