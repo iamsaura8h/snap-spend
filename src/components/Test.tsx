@@ -12,7 +12,8 @@ export default function Test() {
     formData.append("csv", file);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/upload", formData);
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const res = await axios.post(`${apiUrl}/api/upload`, formData);
       setResult(res.data);
     } catch (err) {
       console.error("Upload error:", err);

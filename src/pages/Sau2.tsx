@@ -15,7 +15,8 @@ const Sau2 = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/ask-question", {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const res = await axios.post(`${apiUrl}/ask-question`, {
         question,
       });
 

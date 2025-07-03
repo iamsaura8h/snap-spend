@@ -23,7 +23,8 @@ const Analyse = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5000/analyze-transactions", formData);
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await axios.post(`${apiUrl}/analyze-transactions`, formData);
       setCategorizedData(response.data);
     } catch (error) {
       alert("Failed to analyze transactions");

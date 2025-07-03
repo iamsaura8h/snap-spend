@@ -39,7 +39,8 @@ export default function App() {
     const formData = new FormData();
     formData.append("csvFile", file);
     try {
-      const res = await fetch("http://localhost:5000/analyze-transactions", {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const res = await fetch(`${apiUrl}/analyze-transactions`, {
         method: "POST",
         body: formData,
       });
