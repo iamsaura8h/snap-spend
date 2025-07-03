@@ -30,11 +30,11 @@ ChartJS.register(
 export default function Saurabh() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const fileInput = useRef();
+  const fileInput = useRef<HTMLInputElement>(null);
 
   // Handle CSV upload
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (!file) return;
     setLoading(true);
     const formData = new FormData();
@@ -56,8 +56,8 @@ export default function Saurabh() {
   // Day-wise expenditure (Line chart)
   const getDayWiseData = () => {
     if (!data) return { labels: [], datasets: [] };
-    const dayMap = {};
-    data.categorized.forEach((t) => {
+    const dayMap: { [key: number]: number } = {};
+    data.categorized.forEach((t: any) => {
       if (t.category !== "Income") {
         const day = parseInt(t.date.split("-")[2], 10);
         if (!dayMap[day]) dayMap[day] = 0;
@@ -85,8 +85,8 @@ export default function Saurabh() {
   // Category-wise spending (Bar & Pie chart)
   const getCategoryData = () => {
     if (!data) return { labels: [], datasets: [] };
-    const catTotals = {};
-    data.categorized.forEach((t) => {
+    const catTotals: { [key: string]: number } = {};
+    data.categorized.forEach((t: any) => {
       if (!catTotals[t.category]) catTotals[t.category] = 0;
       catTotals[t.category] += t.amount;
     });
@@ -122,7 +122,7 @@ export default function Saurabh() {
               onChange={handleFileChange}
             />
             <button
-              onClick={() => fileInput.current.click()}
+              onClick={() => fileInput.current?.click()}
               disabled={loading}
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors mr-4"
             >
@@ -166,7 +166,7 @@ export default function Saurabh() {
                 <div className="mt-4">
                   <h5 className="font-medium mb-2">Money Saving Tips:</h5>
                   <ul className="list-disc list-inside space-y-1">
-                    {data.analytics.reduceAdvice.map((advice, i) => (
+                    {data.analytics.reduceAdvice.map((advice: string, i: number) => (
                       <li key={i} className="text-sm text-gray-600">{advice}</li>
                     ))}
                   </ul>
@@ -240,7 +240,7 @@ export default function Saurabh() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {data.categorized.map((t, i) => (
+                    {data.categorized.map((t: any, i: number) => (
                       <tr key={i} className="hover:bg-gray-50">
                         <td className="px-4 py-2 text-sm text-gray-900">{t.description}</td>
                         <td className="px-4 py-2 text-sm text-gray-900">{t.category}</td>
