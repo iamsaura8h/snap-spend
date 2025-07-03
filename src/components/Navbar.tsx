@@ -33,6 +33,12 @@ const Navbar = () => {
               </Button>
               <Button 
                 variant="ghost" 
+                onClick={() => navigate("/analyzer")}
+              >
+                Analyzer
+              </Button>
+              <Button 
+                variant="ghost" 
                 onClick={() => navigate("/results")}
               >
                 Results
